@@ -64,15 +64,13 @@ print(zeta_func(2)) # => 1.6449...
 
 # formula (20) in http://mathworld.wolfram.com/RiemannZetaFunction.html
 #
-# zeta(s) = 1/(1 - 2^(1-s)) * sum((-1^(n-1)) / n^s)
+# zeta(s) = 1/(1 - 2**(1-s)) * sum((-1**(n-1)) / n**s)
 # Simplify
-# zeta(s) = sum((-1^(n-1)) / n^s) / (1 - 2^(1-s))
+# zeta(s) = sum((-1**(n-1)) / n**s) / (1 - 2**(1-s))
 def zeta2(s, t=10000):
     if s == 1: return float("inf")
-    #term = ((-1)**(n - 1) / (n ** s) for n in count(1))
-    #return sum(islice(term, t)) / (1 - 2**(1 - s))
-    term = 
-    return sum(islice(term, t)) / (2 ** (1 - s) -  1)
+    equation = [-1**(n-1) / n**s for n in range(1, t)]
+    return sum(equation) / (1 - 2 ** (1-s))
 
 
 print(zeta2(2))
