@@ -10,9 +10,9 @@ def test_function(x):
 
 ans, err = quad(test_function, 0, 1)
 
-
+'''Generate an matplotlib graph of a function with the area under the curve of the integral shaded in.
+Input a function for the graph, the lower limit of the integral, the upper limit of the integral, and the optional keyword argument which will change the range of x-values on the graph.'''
 def graph_integral(func, a, b, x=[-10, 10]):
-	a, b = 0, 3  # integral limits
 	x = np.linspace(-10, 10) # x = 0 to x = 10 for the graph itself
 	y = func(x)
 
@@ -48,15 +48,11 @@ def graph_integral(func, a, b, x=[-10, 10]):
 
 graph_integral(test_function, 0, 3)
 
-# I want to program the riemann hypothesis myself so I can 
-
-# https://gist.github.com/bellbind/529d283407e707ef3a52
-
 # Zeta function:
 # zeta(s) = sum(1/n^s)
 # (Re(s) > 1)
-def zeta_func(s, t=10000): # s is the index of the summation, t is upper limit of the summation (ideally infinite)
-    equation = [1 / (n ** s) for n in range(1, t)] # For each term in the summation, 1/(n**s)
+def zeta_func(s, t=10000): # s is the index of the summation, t is upper limit of the summation (ideally infinity)
+    equation = [1 / (n ** s) for n in range(1, t+1)] # For each term in the summation, 1/(n**s)
     return sum(equation)
 
 
@@ -67,41 +63,35 @@ print(zeta_func(2)) # => 1.6449...
 # zeta(s) = 1/(1 - 2**(1-s)) * sum((-1**(n-1)) / n**s)
 # Simplify
 # zeta(s) = sum((-1**(n-1)) / n**s) / (1 - 2**(1-s))
-def zeta2(s, t=10000):
-    if s == 1: return float("inf")
-    equation = [-1**(n-1) / n**s for n in range(1, t)]
+def zeta_func2(s, t=10000):
+    if s == 1: return float("inf") # accounting for case
+    equation = [(-1)**(n-1) / (n**s) for n in range(1, t)]
     return sum(equation) / (1 - 2 ** (1-s))
 
 
-print(zeta2(2))
-print((zeta2(2) * 6) ** 0.5)
-print(abs(zeta2(0.5+14.134725142j))) # => 0
-print(abs(zeta2(0.5-14.134725142j))) # => 0
-#print(zeta2(0)) # invalid
+print(zeta_func2(2))
+print(abs(zeta_func2(0.5+14.134725142j))) # => 0
+print(abs(zeta_func2(0.5-14.134725142j))) # => 0
 
 
-# (utility) binomial coefficient
+# binomial coefficient
 def binom(n, k):
-    v = 1
-    for i in range(k):
-        v *= (n - i) / (i + 1)
-    return v
+	a = 1
+	for i in range(k):
+		a *= (n - i) / (i + 1) # (i + 1) to account for range starting at 0
+	return a
 
+print(binom(7, 3))
 
 # formula (21) in http://mathworld.wolfram.com/RiemannZetaFunction.html
-# Global zeta function by Knopp and Hasse (s != 1)
-def zeta3(s, t=100):
+# (s != 1)
+
+# zeta(s) = (1 / (1 - 2^(1-s))) * sum(1 / 2^(n+1) * sum((-1)**k * binom(n, k) * (k+1)^-s))
+
+def zeta_func3(s, t=100):
     if s == 1: return float("inf")
-    term = (1 / 2 ** (n + 1) * sum((-1) ** k * binom(n, k) * (k + 1) ** -s 
-                                   for k in range(n + 1)) for n in count(0))
-    return sum(islice(term, t)) / (1 - 2 ** (1 - s))
+    term = [(1 / 2) ** (n + 1) * sum((-1) ** k * binom(n, k) * (k + 1) ** -s 
+			for k in range(n + 1)) for n in range(1000)] # Technically the value of range() should be infinite since the summation is to infinity, but it can be approximiated for the sake of runtime.
+    return sum(term) / (1 - 2 ** (1 - s))
 
-
-print(zeta3(2))
-print((zeta3(2) * 6) ** 0.5)
-print(abs(zeta3(0.5+14.134725142j))) # => 0
-print(abs(zeta3(0.5-14.134725142j))) # => 0
-print(zeta3(1)) # => inf
-print(zeta3(0)) # => -1/2
-print(zeta3(-1)) # => -1/12 = 0.08333...
-print(zeta3(-2)) # => 0
+print(zeta_func3(2))
