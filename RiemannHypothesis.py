@@ -40,7 +40,7 @@ def graph_integral(func, a, b, x=[-10, 10]):
 
 	plt.show()
 
-# graph_integral(lambda x: x**2, 0, 3)
+# graph_integral(lambda x: x**2, 0, 100000000)
 
 
 
@@ -86,14 +86,17 @@ def zeta_func3(s, t=100):
 # Graph?
 print(f'{abs(zeta_func3(0.5-14.134725142j)):0.10f}')
 
-# Find the first n approximate zeroes of the Riemann Zeta function
-def find_zeroes(n=10):
+# Find the first n approximate zeroes of the Riemann Zeta function. Albeit fairly brute force. 
+def find_zeroes(n=11):
 	zeroes = [] # Since all of the zeroes real component is 0.5, only store imaginary number
-	for i in np.linspace(0, 10000, 10001):
-		if len(zeroes) == 10:
+	for i in np.linspace(0, 10000, 1000001):
+		if len(zeroes) == math.ceil(n//2): # Since each zero's imaginary number can be positive or negative
 			break
 		val = zeta_func3(complex(0.5, i))
 		if round(abs(val), 2) == 0.00:
-			print('Dis one good', complex(0.5, i))
+			print(complex(0.5, i))
+			zeroes.append(i)
+	return zeroes
 
-find_zeroes()
+print(find_zeroes())
+
