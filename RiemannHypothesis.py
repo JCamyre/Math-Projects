@@ -27,8 +27,10 @@ def graph_integral(func, a, b, x=[-10, 10]):
 	poly = Polygon(verts, color = [0.72, 0, 1], edgecolor='0')
 	ax.add_patch(poly)
 
-	# ax.text(0.5 * (a + b), 30, r"$\int_a^b f(x)\mathrm{d}x$",
-	#         horizontalalignment='center', fontsize=20)
+	ax.text(0.5 * (a + b), 50, r"$f(x)=x^2$",
+	        horizontalalignment='center', fontsize=20)
+	ax.text(0.5 * (a + b), 30, r"$\int_0^3 f(x)\mathrm{d}x$",
+	        horizontalalignment='center', fontsize=20)
 
 	fig.text(0.9, 0.05, '$x$')
 	fig.text(0.1, 0.9, '$y$')
@@ -44,7 +46,7 @@ def graph_integral(func, a, b, x=[-10, 10]):
 
 	plt.show()
 
-# graph_integral(test_function, 0, 3)
+graph_integral(test_function, 0, 3)
 
 # I want to program the riemann hypothesis myself so I can 
 
@@ -53,31 +55,23 @@ def graph_integral(func, a, b, x=[-10, 10]):
 # Zeta function:
 # zeta(s) = sum(1/n^s)
 # (Re(s) > 1)
-def zeta_func(s, t=10000):
+def zeta_func(s, t=10000): # s is the index of the summation, t is upper limit of the summation (ideally infinite)
     equation = [1 / (n ** s) for n in range(1, t)] # For each term in the summation, 1/(n**s)
     return sum(equation)
 
 
 print(zeta_func(2)) # => 1.6449...
-print((zeta_func(2) * 6) ** 0.5) # => PI = 3.1415...
-#print(zeta1(0.5+14.134725142j)) # invalid
-
 
 # formula (20) in http://mathworld.wolfram.com/RiemannZetaFunction.html
 #
-#   sum((-1)^n/n^s) + sum(1/n^2) = 2 * sum(1/n^s, n=2,4,6,...)
-#                                = 2 * sum(1/(2*n)^s)
-#                                = 2 * 2^-s * sum(1/n^s)
-#
-#   sum((-1)^n/n^s) + zeta(s) = 2^(1-s) * zeta(s)
-#
-#   zeta(s) = 1/(1 - 2^(1-s)) * sum((-1^(n-1)) / n^s)
-#   (Re(s) > 0 and s != 1)
+# zeta(s) = 1/(1 - 2^(1-s)) * sum((-1^(n-1)) / n^s)
+# Simplify
+# zeta(s) = sum((-1^(n-1)) / n^s) / (1 - 2^(1-s))
 def zeta2(s, t=10000):
     if s == 1: return float("inf")
     #term = ((-1)**(n - 1) / (n ** s) for n in count(1))
     #return sum(islice(term, t)) / (1 - 2**(1 - s))
-    term = ((-1) ** n * n ** -s for n in count(1))
+    term = 
     return sum(islice(term, t)) / (2 ** (1 - s) -  1)
 
 
