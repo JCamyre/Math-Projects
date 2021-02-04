@@ -43,7 +43,7 @@ def graph_integral(func, a, b, x=[-10, 10]):
 # graph_integral(lambda x: x**2, 0, 100000000)
 
 
-
+# https://gist.github.com/bellbind/529d283407e707ef3a52
 
 # To do: Graph
 
@@ -84,7 +84,7 @@ def zeta_func3(s, t=100):
     return sum(term) / (1 - 2 ** (1 - s))
 
 # Graph?
-print(f'{abs(zeta_func3(0.5-14.134725142j)):0.10f}')
+# print(f'{abs(zeta_func3(0.5-14.134725142j)):0.10f}')
 
 # Find the first n approximate zeroes of the Riemann Zeta function. Albeit fairly brute force. 
 def find_zeroes(n=11):
@@ -98,5 +98,21 @@ def find_zeroes(n=11):
 			zeroes.append(i)
 	return zeroes
 
-print(find_zeroes())
+# print(find_zeroes(n=20))
+
+# Finding prime number theorem
+# Returns the number of primes that are less than or equal to N
+def primenum_theorem(N): # N: ℝ+
+	# Multiple definitions for prime-counting function
+
+	# π(N) ~ N/log(N)
+	print(math.floor(N / np.log(N)))
+
+	# Maybe visualize Prime sieving 
+
+# Some other applications, but have to talk about it in the paper itself
+
+# Psuedo code for introducing how to use math in programming, then show equivalents in programming and math 
+
+primenum_theorem(100)
 
