@@ -104,15 +104,25 @@ def find_zeroes(n=11):
 # Returns the number of primes that are less than or equal to N
 def primenum_theorem(N): # N: ℝ+
 	# Multiple definitions for prime-counting function
+	fig, axs = plt.subplots(2, 1, figsize=(15, 15))
 
 	# π(N) ~ N/log(N)
-	print(math.floor(N / np.log(N)))
+	x = np.linspace(1, N, 10*N)
+	y = x / np.log(x)
+	# y = [math.floor(yo) for yo in y]
+	print(x, y)
 
-	# Maybe visualize Prime sieving 
+	axs[0].plot(x, y, alpha=0.4, lw=3)
+
+	plt.show()
+
+	# Maybe visualize Prime sieving ?
+	# Graph functions?
+	# Print all primes?
 
 # Some other applications, but have to talk about it in the paper itself
 
 # Psuedo code for introducing how to use math in programming, then show equivalents in programming and math 
 
-primenum_theorem(100)
+primenum_theorem(10**24)
 
