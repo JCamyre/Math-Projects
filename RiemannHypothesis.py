@@ -107,22 +107,22 @@ def primenum_theorem(N): # N: ℝ+
 	fig, axs = plt.subplots(2, 1, figsize=(15, 15))
 
 	# π(N) ~ N/log(N)
-	x = np.linspace(1, N, 10*N)
-	y = x / np.log(x)
-	# y = [math.floor(yo) for yo in y]
-	print(x, y)
-
-	axs[0].plot(x, y, alpha=0.4, lw=3)
-
-	plt.show()
+	print(f'For the first {N} numbers, there are {math.floor(N/np.log(N))} primes.')
 
 	# Maybe visualize Prime sieving ?
 	# Graph functions?
+	# x = np.linspace(1, N, 10*N)
+	# y = x / np.log(x)
+	# print(x, y)
+
+	# axs[0].plot(x, y, alpha=0.4, lw=3)
+
+	plt.show()
 	# Print all primes?
 
 # Some other applications, but have to talk about it in the paper itself
 
 # Psuedo code for introducing how to use math in programming, then show equivalents in programming and math 
 
-primenum_theorem(10**24)
+primenum_theorem(10)
 
