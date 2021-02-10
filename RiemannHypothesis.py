@@ -109,6 +109,9 @@ def primenum_theorem(N): # N: ℝ+
 	# π(N) ~ N/log(N)
 	print(f'For the first {N} numbers, there are {math.floor(N/np.log(N))} primes.')
 
+	# Show proof for approximiation of number of primes and of nth prime number
+	print(f'The nth prime number: {N * log(N)}')
+
 	# Maybe visualize Prime sieving ?
 	# Graph functions?
 	# x = np.linspace(1, N, 10*N)
@@ -123,6 +126,17 @@ def primenum_theorem(N): # N: ℝ+
 # Some other applications, but have to talk about it in the paper itself
 
 # Psuedo code for introducing how to use math in programming, then show equivalents in programming and math 
+
+# Calculating location/number of zeros
+def calculate_num_of_zeros():
+	pass
+
+# Zeros on the critical line
+
+# Numerical calculations
+
+# Gram points
+
 
 primenum_theorem(10)
 
