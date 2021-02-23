@@ -161,21 +161,20 @@ def illustrate_nums(all_nums):
 illustrate_nums(all_nums)
 
 # All multiples of two
-multiples_2 = [i for i in range(1, 101) if i % 2 == 0]
+def multiples(limit: int):
+	multiples_2 = [i for i in range(1, limit+1) if i % 2 == 0]
+	# Collapse 2d list to analyze each number. 
+	print([j for i in all_nums for j in i if j not in multiples_2]) # [col for row in list for col in row]. Row then col
 
-multiples_3 = [i for i in range(1, 101) if i % 3 == 0]
+	multiples_3 = [i for i in range(1, limit+1) if i % 3 == 0]
 
-multiples_5 = [i for i in range(1, 101) if i % 5 == 0]
+	multiples_5 = [i for i in range(1, limit+1) if i % 5 == 0]
 
-multiples_7 = [i for i in range(1, 101) if i % 7 == 0]
+	multiples_7 = [i for i in range(1, limit+1) if i % 7 == 0]
 
-multiples_11 = [i for i in range(1, 101) if i % 11 == 0]
+	multiples_11 = [i for i in range(1, limit+1) if i % 11 == 0]
 
-# print(multiples_2)
-# print(multiples_3)
-# print(multiples_5)
-# print(multiples_7)
-# print(multiples_11)
+multiples(54)
 
 # Visualize the multiples for each set of multiples (i.e: for the two multiples, delete all values in an array 10 x 10 from 1 to 100).
 
