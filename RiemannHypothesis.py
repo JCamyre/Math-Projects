@@ -147,7 +147,8 @@ primenum_theorem(10)
 # All prime numbers 1-100
 
 all_nums = [[i for i in range(j, j+10)] for j in range(1, 101, 10)]
-print(all_nums)
+for row in all_nums:
+	print(' '.join([str(n).center(4) for n in row]))
 
 # All multiples of two
 multiples_2 = [i for i in range(1, 101) if i % 2 == 0]
