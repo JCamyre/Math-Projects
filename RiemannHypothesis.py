@@ -145,8 +145,15 @@ primenum_theorem(10)
 # Should I explain the code behind the np functions?
 
 # All prime numbers 1-100
+# Visualize the sieving method: "sieve of Eratosthenes"
+# Have to know when to stop given a certain limit
 
-all_nums = [[i for i in range(j, j+10)] for j in range(1, 101, 10)]
+def generate_nums(limit: int):
+	nums = [[i for i in range(j, j+10) if i <= limit] for j in range(1, limit, 10)]
+	return nums 
+
+all_nums = generate_nums(54)
+print(all_nums)
 
 def illustrate_nums(all_nums):
 	for row in all_nums:
