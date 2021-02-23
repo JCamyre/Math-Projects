@@ -110,7 +110,7 @@ def primenum_theorem(N): # N: ℝ+
 	print(f'For the first {N} numbers, there are {math.floor(N/np.log(N))} primes.')
 
 	# Show proof for approximiation of number of primes and of nth prime number
-	print(f'The nth prime number: {N * log(N)}')
+	print(f'The nth prime number: {N * np.log(N)}')
 
 	# Maybe visualize Prime sieving ?
 	# Graph functions?
@@ -120,7 +120,7 @@ def primenum_theorem(N): # N: ℝ+
 
 	# axs[0].plot(x, y, alpha=0.4, lw=3)
 
-	plt.show()
+	# plt.show()
 	# Print all primes?
 
 # Some other applications, but have to talk about it in the paper itself
@@ -140,3 +140,33 @@ def calculate_num_of_zeros():
 
 primenum_theorem(10)
 
+# How to code math in programming? Let me tell you: We must first import functions needed to construct our equations. Importing functions consist of firsting import the module the function is part of, or the group of functions the function we want belongs to. We do this by typing on a new line "import NAME_OF_MODULE". If we only want specific functions from the module, we can type "from NAME_OF_MODULE import NAME_OF_FUNCTION1, NAME_OF_FUNCTION2"
+# Math can be computed in Python in two general forms: by using functions and by using math symbols (doing math explicitly). Function: np.log(10). Symbols: ((10 * 10) + 5) / 2. 
+# Should I explain the code behind the np functions?
+
+# All prime numbers 1-100
+
+all_nums = [[i for i in range(j, j+10)] for j in range(1, 101, 10)]
+print(all_nums)
+
+# All multiples of two
+multiples_2 = [i for i in range(1, 101) if i % 2 == 0]
+
+multiples_3 = [i for i in range(1, 101) if i % 3 == 0]
+
+multiples_5 = [i for i in range(1, 101) if i % 5 == 0]
+
+multiples_7 = [i for i in range(1, 101) if i % 7 == 0]
+
+multiples_11 = [i for i in range(1, 101) if i % 11 == 0]
+
+# print(multiples_2)
+# print(multiples_3)
+# print(multiples_5)
+# print(multiples_7)
+# print(multiples_11)
+
+# Visualize the multiples for each set of multiples (i.e: for the two multiples, delete all values in an array 10 x 10 from 1 to 100).
+
+
+# Now all prime numbers combined (The numbers not in any of these multiples)
