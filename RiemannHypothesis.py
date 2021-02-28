@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt 
-import numpy as np 
 from matplotlib.patches import Polygon
 from scipy.special import zeta
 import math
@@ -74,17 +73,20 @@ def binom(n, k):
 
 # formula (21) in http://mathworld.wolfram.com/RiemannZetaFunction.html
 # (s != 1)
+# Converted functions
 # zeta(s) = (1 / (1 - 2^(1-s))) * sum(1 / 2^(n+1) * sum((-1)**k * binom(n, k) * (k+1)^-s))
 
 # Zeta function accepts complex numbers 
 def zeta_func3(s, t=100):
     if s == 1: return float("inf")
     term = [(1 / 2) ** (n + 1) * sum((-1) ** k * binom(n, k) * (k + 1) ** -s 
-			for k in range(n + 1)) for n in range(t)] # Technically the value of range() should be infinite since the summation is to infinity, but it can be approximiated for the sake of runtime.
-    return sum(term) / (1 - 2 ** (1 - s))
+			for k in range(n + 1)) for n in range(t)] 
+			# Technically the value of range() should be infinite since the summation is to infinity, but it can be approximiated for the sake of runtime.
+    return sum(term) / (1 - 2 ** (1 - s)) # Equivalent to dividing the two summations and the binomial coefficient by each other
 
-# Graph?
-# print(f'{abs(zeta_func3(0.5-14.134725142j)):0.10f}')
+def zeta_func4(s, t=100):
+    if s == 1: return float("inf") # Don't know if actually needed
+	term = (2**s) * (math.pi ** (s-1)) * math.sin((math.pi * s)/2) * 
 
 # Find the first n approximate zeroes of the Riemann Zeta function. Albeit fairly brute force. 
 def find_zeroes(n=11):
@@ -107,10 +109,10 @@ def primenum_theorem(N): # N: ℝ+
 	fig, axs = plt.subplots(2, 1, figsize=(15, 15))
 
 	# π(N) ~ N/log(N)
-	print(f'For the first {N} numbers, there are {math.floor(N/np.log(N))} primes.')
+	print(f'For the first {N} numbers, there are {math.floor(N/math.log10(N))} primes.')
 
 	# Show proof for approximiation of number of primes and of nth prime number
-	print(f'The nth prime number: {N * np.log(N)}')
+	print(f'The nth prime number: {N * math.log10(N)}')
 
 	# Maybe visualize Prime sieving ?
 	# Graph functions?
@@ -122,8 +124,6 @@ def primenum_theorem(N): # N: ℝ+
 
 	# plt.show()
 	# Print all primes?
-
-# Some other applications, but have to talk about it in the paper itself
 
 # Psuedo code for introducing how to use math in programming, then show equivalents in programming and math 
 
@@ -140,16 +140,17 @@ def calculate_num_of_zeros():
 
 primenum_theorem(10)
 
-# How to code math in programming? Let me tell you: We must first import functions needed to construct our equations. Importing functions consist of firsting import the module the function is part of, or the group of functions the function we want belongs to. We do this by typing on a new line "import NAME_OF_MODULE". If we only want specific functions from the module, we can type "from NAME_OF_MODULE import NAME_OF_FUNCTION1, NAME_OF_FUNCTION2"
-# Math can be computed in Python in two general forms: by using functions and by using math symbols (doing math explicitly). Function: np.log(10). Symbols: ((10 * 10) + 5) / 2. 
-# Should I explain the code behind the np functions?
 
-# All prime numbers 1-100
 # Visualize the sieving method: "sieve of Eratosthenes"
-# Have to know when to stop given a certain limit
 
-def generate_nums(limit: int):
-	nums = [[i for i in range(j, j+10) if i <= limit] for j in range(1, limit, 10)]
+# To find all the prime numbers less than or equal to a given integer n by Eratosthenes' method:
+# 1. Create a list of consecutive integers from 2 through n: (2, 3, 4, ..., n). I created a 2d list for visualization purposes.
+def create_arr(n: int):
+	return [i for i in range(1, n+1)]
+
+def convert_to_2d(arr: int):
+	n = max(arr)
+	nums = [[i for i in range(j, j+10) if i <= n] for j in range(2, n, 10)]
 	return nums 
 
 all_nums = generate_nums(54)
@@ -160,19 +161,26 @@ def illustrate_nums(all_nums):
 		print(' '.join([str(n).center(4) for n in row]))
 illustrate_nums(all_nums)
 
+# Maybe too hard to do it properly, so maybe just do it the easy way
 # All multiples of two
-def multiples(limit: int):
-	multiples_2 = [i for i in range(1, limit+1) if i % 2 == 0]
+def multiples(n: int):
+	# 2. Initially, let p equal 2, the smallest prime number.
+	# 3. Enumerate the multiples of p by counting in increments of p from 2p to n, and mark them in the list (these will be 2p, 3p, 4p, ...; the p itself should not be marked).
+	multiples_2 = [i for i in range(1, n+1) if i % 2 == 0]
 	# Collapse 2d list to analyze each number. 
-	print([j for i in all_nums for j in i if j not in multiples_2]) # [col for row in list for col in row]. Row then col
+	print(convert_2d_list(all_nums)) # [col for row in list for col in row]. Row then col
 
-	multiples_3 = [i for i in range(1, limit+1) if i % 3 == 0]
+	# 4. Find the smallest number in the list greater than p that is not marked. If there was no such number, stop. Otherwise, let p now equal this new number (which is the next prime), and repeat from step 3.
+	
+	multiples_3 = [i for i in range(1, n+1) if i % 3 == 0]
+	print([j for i in all_nums for j in i if j not in multiples_3])
 
-	multiples_5 = [i for i in range(1, limit+1) if i % 5 == 0]
+	multiples_5 = [i for i in range(1, n+1) if i % 5 == 0]
+	print([j for i in all_nums for j in i if j not in multiples_5])
 
-	multiples_7 = [i for i in range(1, limit+1) if i % 7 == 0]
-
-	multiples_11 = [i for i in range(1, limit+1) if i % 11 == 0]
+	multiples_7 = [i for i in range(1, n+1) if i % 7 == 0]
+	print([j for i in all_nums for j in i if j not in multiples_7])
+	# 5. When the algorithm terminates, the numbers remaining not marked in the list are all the primes below n.
 
 multiples(54)
 
