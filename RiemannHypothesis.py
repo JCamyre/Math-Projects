@@ -99,7 +99,7 @@ def find_zeroes(n=11):
 			zeroes.append(i)
 	return zeroes
 
-# print(find_zeroes(n=20))
+print(find_zeroes())
 
 # Finding prime number theorem
 # Returns the number of primes that are less than or equal to N
