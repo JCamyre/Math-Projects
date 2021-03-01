@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt 
 from matplotlib.patches import Polygon
 from scipy.special import zeta
+from scipy.integrate import quad
 import math
+import numpy as np
 
 '''Generate an matplotlib graph of a function with the area under the curve of the integral shaded in.
 Input a function for the graph, the lower limit of the integral, the upper limit of the integral, and the optional keyword argument which will change the range of x-values on the graph.'''
@@ -83,10 +85,7 @@ def zeta_func3(s, t=100):
 			for k in range(n + 1)) for n in range(t)] 
 			# Technically the value of range() should be infinite since the summation is to infinity, but it can be approximiated for the sake of runtime.
     return sum(term) / (1 - 2 ** (1 - s)) # Equivalent to dividing the two summations and the binomial coefficient by each other
-
-def zeta_func4(s, t=100):
-    if s == 1: return float("inf") # Don't know if actually needed
-	term = (2**s) * (math.pi ** (s-1)) * math.sin((math.pi * s)/2) * 
+print(zeta_func3(40))
 
 # Find the first n approximate zeroes of the Riemann Zeta function. Albeit fairly brute force. 
 def find_zeroes(n=11):
